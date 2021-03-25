@@ -31,17 +31,17 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			</thead>
 			
 			<tbody>
-				<tr th:each="albums: ${albums}">
-					<td th:text="${albums.name}"></td>
-					<td th:text="${albums.artist}"></td>
-					<td th:text="${albums.year}"></td>
-					<td th:text="${albums.genre.name}"></td>
+				<tr th:each="album: ${albums}">
+					<td th:text="${album.name}"></td>
+					<td th:text="${album.artist}"></td>
+					<td th:text="${album.year}"></td>
+					<td th:text="${album.genre.name}"></td>
 					<td sec:authorize="hasAuthority('ADMIN')">
-					<a th:href=@{/edit/{id}(id=${albums.id})}
+					<a th:href=@{/edit/{id}(id=${album.id})}
 					class="btn btn-primary"
 					>Edit</a></td>
 					<td sec:authorize="hasAuthority('ADMIN')">
-					<a th:href=@{/delete/{id}(id=${albums.id})}
+					<a th:href=@{/delete/{id}(id=${album.id})}
 					class ="btn btn-danger"
 					>Delete</a></td>
 				</tr>

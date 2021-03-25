@@ -6,6 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+
+
+
+
+
+
+
 
 @Entity
 public class Album {
@@ -14,14 +26,22 @@ public class Album {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	@NotNull
+	@Size(min=2, max=30)
 	private String artist;
+	
+	@NotNull
+	@Size(min=1, max=30)
 	private String name;
+	
+	@NotNull(message="Please enter a valid year")
+	@Positive(message="Please enter a valid year")
+	@Digits(integer = 4, fraction = 0, message="Please enter a valid year")
 	private int year;
 	
 	
 	@ManyToOne
 	@JoinColumn(name="genreid")
-	
 	private Genre genre;
 
 

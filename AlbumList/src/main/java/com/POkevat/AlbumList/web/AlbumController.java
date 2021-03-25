@@ -1,14 +1,15 @@
 package com.POkevat.AlbumList.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import com.POkevat.AlbumList.domain.Album;
 import com.POkevat.AlbumList.domain.AlbumRepository;
 import com.POkevat.AlbumList.domain.GenreRepository;
@@ -51,12 +52,21 @@ public class AlbumController {
 		model.addAttribute("album", arepo.findById(id));
 		model.addAttribute("genres", grepo.findAll());
 		
+		System.out.println(model.getAttribute("album"));
+		
 		return "edit";
 	}
 	
-	@PostMapping("/update")
-		public String update(Model model, @ModelAttribute("album") Album album) {
+	@PostMapping("/update/")
+		public String update(@Valid Album album, BindingResult bindingresult, Model model) {
+		if(bindingresult.hasErrors()) {
+			model.addAttribute("genres", grepo.findAll());
+			return "edit";
+		}
+		
+		System.out.println(album);
 		arepo.save(album);
+		
 		return "redirect:/home";
 	}
 	
@@ -72,8 +82,16 @@ public class AlbumController {
 	
 	@PostMapping("/save")
 	@PreAuthorize("hasAuthority('ADMIN')")
-		public String save(@ModelAttribute("album") Album album, Model model) {
+		public String save(@Valid Album album, BindingResult bindingresult, Model model) {
 		
+		if(bindingresult.hasErrors()) {
+			
+			model.addAttribute("genres", grepo.findAll());
+			return "add";
+		}
+		
+		
+		model.addAttribute("album", album);
 		arepo.save(album);
 		
 		return "redirect:/home";

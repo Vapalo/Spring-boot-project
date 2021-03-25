@@ -18,26 +18,37 @@
 		</form>
 	</div>
 	
-		<form th:object="${album}" th:action="@{/update}" action="#"
+		<form th:object="${album}" th:action="@{/update/}" action="#"
 			method="post" autocomplete="off" class="mt-4">
+			
 
-			<input type="hidden" th:field="*{id}" />
-			<label for="name">Name</label>
-			<input type="text" id="name" th:field="*{name}" />
+			<table class="table table-borderless">
+				<tr>
+					<td>Name: <input type="text" th:field="*{name}" /></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</td>
+				</tr>
+				<tr>
+					<td>Artist: <input type="text" th:field="*{artist}" /></td>
+					<td th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}">Error</td>
+				</tr>
+				<tr>
+					<td>Year: <input type="number" th:field="*{year}" /></td>
+					<td th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</td>
+				</tr>
+				<tr>
+					<td>Genre: 
+					<select id="glist" th:field="*{genre}">
+					<option th:each="genre: ${genres}" th:value="${genre.genreid}" 
+						th:text="${genre.name}"
+					></option>
+				</select>
+			</td>
 			
-			<label for="artist">Artist</label>
-			<input type="text" id="artist" th:field="*{artist}" />
-			
-			<label for="year">Year</label>
-			<input type="text" id="year" th:field="*{year}" />
-			
-			<label for="glist">Genre</label>
-			<select id="glist" th:field="*{genre}">
-				<option th:each="genre: ${genres}" th:value="${genre.genreid}" 
-				th:text="${genre.name}"
-				></option>
-			</select>
+				</tr>
+				
+			</table>
 
+		  	<input type="hidden" th:field="*{id}" />
 			<input type="submit" value="Edit" class="btn btn-success" /> 
 
 

@@ -18,16 +18,47 @@
 	
 		<form th:object="${album}" th:action="@{/save}" action="#"
 			method="post" autocomplete="off" class="mt-4">
+			
+			<table class="table table-borderless">
+				<tr>
+					<td>Name: <input type="text" th:field="*{name}" /></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</td>
+				</tr>
+				<tr>
+					<td>Artist: <input type="text" th:field="*{artist}" /></td>
+					<td th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}">Error</td>
+				</tr>
+				<tr>
+					<td>Year: <input type="number" th:field="*{year}" /></td>
+					<td th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Error</td>
+				</tr>
+				<tr>
+					<td>Genre: 
+					<select id="glist" th:field="*{genre}">
+					<option th:each="genre: ${genres}" th:value="${genre.genreid}" 
+						th:text="${genre.name}"
+					></option>
+				</select>
+			</td>
+			
+				</tr>
+				
+			</table>
 
+<!-- 
 			<input type="hidden" th:field="*{id}" />
+			
 			<label for="name">Name</label>
 			<input type="text" id="name" th:field="*{name}" />
+			<span th:if="${#fields.hasErrors('name')" th:errors="*{name}">Error</span>
 			
 			<label for="artist">Artist</label>
 			<input type="text" id="artist" th:field="*{artist}" />
+			<span th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}">Error</span>
 			
 			<label for="year">Year</label>
 			<input type="text" id="year" th:field="*{year}" />
+			<span th:if="${#fields.hasErrors('year')" th:errors="*{year}">Error</span>
 			
 			<label for="glist">Genre</label>
 			<select id="glist" th:field="*{genre}">
@@ -35,10 +66,10 @@
 				th:text="${genre.name}"
 				></option>
 			</select>
+			<span th:if="${#fields.hasErrors('genre')" th:errors="*{genre}">Error</span>
+			!-->
 
-			<input type="submit" value="Save" class="btn btn-success" /> 
-
-
+			<input type="submit" value="Save" class="btn btn-success mt-4" /> 
 		</form>
 	</div>
 

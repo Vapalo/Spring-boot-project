@@ -39,6 +39,7 @@ public class AlbumListApplication {
 			grepo.save(new Genre("EDM"));
 			grepo.save(new Genre("Metal"));
 			grepo.save(new Genre("Blues"));
+			grepo.save(new Genre("Iskelmä"));
 			
 			arepo.save(new Album("Metallica", "Ride the Lightning", 1984, grepo.findByName("Metal").get(0)));
 			arepo.save(new Album("The Notorious BIG", "Ready to Die", 1994, grepo.findByName("Hip-Hop").get(0)));

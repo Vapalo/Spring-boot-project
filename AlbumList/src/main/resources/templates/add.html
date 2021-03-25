@@ -7,11 +7,17 @@
 </head>
 <body>
 	
-	<h1>Add a new album</h1>
-	
 	<div class="container">
+	<div class="d-flex">
+	<h1 class="mt-4 p-2 flex-grow-1">Add a new album</h1>
+		<form th:action="@{/logout}" method="post">
+		<a th:href=@{/home} class="btn btn-primary mt-4 p-2">Home</a>
+			<input type="submit" value="Logout" class="mt-4 btn btn-danger p-2 flex-shrink-1">
+		</form>
+	</div>
+	
 		<form th:object="${album}" th:action="@{/save}" action="#"
-			method="post" autocomplete="off">
+			method="post" autocomplete="off" class="mt-4">
 
 			<input type="hidden" th:field="*{id}" />
 			<label for="name">Name</label>

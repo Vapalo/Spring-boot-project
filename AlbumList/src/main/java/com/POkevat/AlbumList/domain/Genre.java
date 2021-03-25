@@ -58,11 +58,6 @@ public class Genre {
 		this.albums = albums;
 	}
 
-	@Override
-	public String toString() {
-		return "Genre [genreid=" + genreid + ", name=" + name + ", albums=" + albums + "]";
-	}
-	
 	
 	
 	

@@ -161,4 +161,10 @@ public class AlbumController {
 	}
 	
 	
+	@GetMapping("/error")
+		public String error() {
+		return "error";
+	}
+	
+	
 }

@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Genre {
@@ -19,6 +22,8 @@ public class Genre {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long genreid;
 	
+	@NotNull
+	@Size(min=2, max=25)
 	private String name;
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="genre")

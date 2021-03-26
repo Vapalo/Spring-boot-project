@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.POkevat.AlbumList.domain.Album;
 import com.POkevat.AlbumList.domain.AlbumRepository;
+import com.POkevat.AlbumList.domain.Genre;
 import com.POkevat.AlbumList.domain.GenreRepository;
 
 @Controller
@@ -64,7 +65,7 @@ public class AlbumController {
 			return "edit";
 		}
 		
-		System.out.println(album);
+		
 		arepo.save(album);
 		
 		return "redirect:/home";
@@ -96,4 +97,68 @@ public class AlbumController {
 		
 		return "redirect:/home";
 	}
+	
+	@GetMapping("/genrelist")
+	@PreAuthorize("hasAuthority('ADMIN')")
+		public String genrelist(Model model) {
+		
+		model.addAttribute("genre", grepo.findAll());
+		
+		return "showgenres";
+	}
+	
+	@GetMapping("/addgenre")
+	@PreAuthorize("hasAuthority('ADMIN')")
+		public String addgenre(Model model) {
+		model.addAttribute(new Genre());
+		
+		return "addgenre";
+	}
+	
+	@PostMapping("/savegenre")
+	@PreAuthorize("hasAuthority('ADMIN')")
+		public String savegenre(@Valid Genre genre, BindingResult bindingresult, Model model) {
+		
+		if(bindingresult.hasErrors()) {
+			
+			return "addgenre";
+		}
+		
+		
+		model.addAttribute("genre", genre);
+		grepo.save(genre);
+		
+		return "redirect:/genrelist";
+	}
+	
+	@GetMapping("/deletegenre/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+		public String removegenre(@PathVariable("id") Long id, Model model) {
+		grepo.deleteById(id);
+		
+		return "redirect:/genrelist";
+	}
+	
+	@GetMapping("/editgenre/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+		public String modifygenre(@PathVariable("id") Long id, Model model) {
+		
+		model.addAttribute("genre", grepo.findById(id));
+		
+		
+		return "editgenre";
+	}
+	
+	@PostMapping("/updategenre/")
+	public String updategenre(@Valid Genre genre, BindingResult bindingresult, Model model) {
+	if(bindingresult.hasErrors()) {
+		return "editgenre";
+	}
+	
+	grepo.save(genre);
+		
+		return "redirect:/genrelist";
+	}
+	
+	
 }

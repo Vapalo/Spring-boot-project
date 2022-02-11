@@ -13,3 +13,19 @@ Regular user cant add, delete or update any info.
 ## Where can I find it?
 
 The project is deployed to Heroku and can be found from [this link](https://springbootalbumlist.herokuapp.com/).
+
+## Docker
+
+Build the project using the provided dockerfile with 
+
+```bash
+$ docker build -t <desired-tag-name> .
+```
+
+Run the container
+
+```bash
+$ docker run --rm -p 8080:8080 <the-same-desired-tag-name>
+```
+
+Then navigate to localhost:8080 to test the project locally
